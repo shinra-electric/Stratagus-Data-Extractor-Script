@@ -42,7 +42,7 @@ homebrew_check() {
 	if ! command -v brew &> /dev/null; then
 		echo -e "${PURPLE}Homebrew not found. Installing Homebrew...${NC}"
 		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-		if [[ "${ARCH_NAME}" == "arm64" ]]; then 
+		if [[ "${ARCH}" == "arm64" ]]; then 
 			(echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> $HOME/.zprofile
 			eval "$(/opt/homebrew/bin/brew shellenv)"
 			else 
