@@ -96,29 +96,44 @@ setup_target_dir() {
 }
 
 verify_data() {
-	if [[ -a War1gus.app ]]; then
-		echo "${PURPLE}Found War1gus.app...${NC}"
-		if [[ -a "setup_warcraft_orcs__humans_1.2_(28330).exe" ]]; then
-			echo "${PURPLE}Found GoG Installer for Warcraft 1...${NC}"
-			dependency_check innoextract
-			dependency_check timidity
-			extract_war1gus
-		elif [[ -a WAR1.BIN && -d DATA ]]; then
-			echo "${PURPLE}Found DATA folder & WAR1.BIN from Warcraft 1...${NC}"
-			dependency_check timidity
-			extract_war1gus
+	
+	if [[ $1 = war1gus ]]; then
+		if [[ -a War1gus.app ]]; then
+			echo "${PURPLE}Found War1gus.app...${NC}"
+			xattr -cr War1gus.app
+			if [[ -a "setup_warcraft_orcs__humans_1.2_(28330).exe" ]]; then
+				echo "${PURPLE}Found GoG Installer for Warcraft 1...${NC}"
+				dependency_check innoextract
+				dependency_check timidity
+				extract_war1gus
+			elif [[ -a WAR1.BIN && -d DATA ]]; then
+				echo "${PURPLE}Found DATA folder & WAR1.BIN from Warcraft 1...${NC}"
+				dependency_check timidity
+				extract_war1gus
+			fi
+		elif 
+			echo "${PURPLE}Could not find War1gus app...${NC}"
+			echo "${PURPLE}Please download it an place it in the same folder as this script and the game data${NC}"
+			exit 1
 		fi
 	fi
 	
-	if [[ -a Wargus.app ]]; then
-		echo "${PURPLE}Found Wargus.app...${NC}"
-		if [ -a "setup_warcraft_ii_2.02_v5_(78104).exe" ]; then
-			echo "${PURPLE}Found GoG Installer for Warcraft 2...${NC}"
-			dependency_check innoextract
-			extract_wargus
-		elif [[ -a Install.mpq && -d Support ]]; then
-			echo "${PURPLE}Found Support folder & Install.mpq from Warcraft 2...${NC}"
-			extract_wargus
+	if [[ $1 = wargus ]]; then
+		if [[ -a Wargus.app ]]; then
+			echo "${PURPLE}Found Wargus.app...${NC}"
+			xattr -cr Wargus.app
+			if [ -a "setup_warcraft_ii_2.02_v5_(78104).exe" ]; then
+				echo "${PURPLE}Found GoG Installer for Warcraft 2...${NC}"
+				dependency_check innoextract
+				extract_wargus
+			elif [[ -a Install.mpq && -d Support ]]; then
+				echo "${PURPLE}Found Support folder & Install.mpq from Warcraft 2...${NC}"
+				extract_wargus
+			fi
+		elif 
+			echo "${PURPLE}Could not find War1gus app...${NC}"
+			echo "${PURPLE}Please download it an place it in the same folder as this script and the game data${NC}"
+			exit 1
 		fi
 	fi
 }
@@ -195,7 +210,7 @@ selection_menu() {
 				setup_target_dir data.War1gus
 				homebrew_check
 				dependency_check ffmpeg
-				verify_data
+				verify_data war1gus
 				finish_menu
 				break
 				;;
@@ -203,7 +218,7 @@ selection_menu() {
 				setup_target_dir data.Wargus
 				homebrew_check
 				dependency_check ffmpeg
-				verify_data
+				verify_data wargus
 				finish_menu
 				break
 				;;
