@@ -17,9 +17,11 @@ The script can extract data from these files:
 
 ## Troubleshooting
 
-When downloaded, you probably won't be able to run the script at first.<br>
+When downloaded, it's likely the script won't be able to run at first. This is expected.<br>
 
 - If you get a message saying that the script can't be opened, right-click on it and select `Open` from the context menu. You should now get a new option to `Open` anyway. If you are running macOS 15 Sequoia or later you may need to approve it from the `Privacy & Security` tab in the Settings app.<br>
+
+- If there is still a message that says it can't be opened, try changing the Extended Attributes of the file with `xattr -cr Extractor\ script.sh`.
 
 - The default application that is used to open the script might be set to a text editor. Change the default application by selecting the script and using `Command+I` to open the `Get Info` window (or right-click and select from the context menu). Under the `Open With:` section, if Terminal is not selected choose `Other`, enable `All Applications` and navigate to `/Applications/Utilities/Terminal`. It should now open by double-clicking it.<br>
 
