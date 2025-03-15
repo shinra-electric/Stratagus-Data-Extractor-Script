@@ -29,7 +29,7 @@ introduction() {
 	echo "${GREEN}Warcraft${PURPLE}: ${NC}DATA${PURPLE} folder and ${NC}WAR1.BIN"
 	echo "${GREEN}Warcraft${PURPLE}: ${NC}setup_warcraft_orcs__humans_1.2_(28330).exe${PURPLE} GoG Installer${NC}\n"
 	echo "${GREEN}Warcraft II${PURPLE}: ${NC}Support${PURPLE} folder and ${NC}Install.mpq"
-	echo "${GREEN}Warcraft II${PURPLE}: ${NC}setup_warcraft_ii_2.02_v5_(78104).exe${PURPLE} and ${NC}.bin${PURPLE} GoG Installer${NC}"
+	echo "${GREEN}Warcraft II${PURPLE}: ${NC}setup_warcraft_ii_2.02_v5_(78104).exe${PURPLE} and ${NC}setup_warcraft_ii_2.02_v5_(78104)-1.bin${PURPLE} GoG Installer${NC}"
 	#echo "${GREEN}Starcraft${PURPLE}: ${NC}INSTALL.EXE"
 	
 	echo "\n${GREEN}Homebrew${PURPLE} and the ${GREEN}Xcode command-line tools${PURPLE} are required${NC}"
@@ -110,6 +110,11 @@ verify_data() {
 				echo "${PURPLE}Found DATA folder & WAR1.BIN from Warcraft 1...${NC}"
 				dependency_check timidity
 				extract_war1gus
+			else 
+				echo "${PURPLE}Could not find Warcraft game data...${NC}"
+				echo "${PURPLE}If you are using the latest GoG installer ensure it is named correctly${NC}"
+				echo "${PURPLE}Quitting...${NC}"
+				exit 1
 			fi
 		else
 			echo "${PURPLE}Could not find War1gus app...${NC}"
@@ -121,13 +126,18 @@ verify_data() {
 		if [[ -a Wargus.app ]]; then
 			echo "${PURPLE}Found Wargus.app...${NC}"
 			xattr -cr Wargus.app
-			if [ -a "setup_warcraft_ii_2.02_v5_(78104).exe" ]; then
+			if [[ -a "setup_warcraft_ii_2.02_v5_(78104).exe" && -a "setup_warcraft_ii_2.02_v5_(78104)-1.bin" ]]; then
 				echo "${PURPLE}Found GoG Installer for Warcraft 2...${NC}"
 				dependency_check innoextract
 				extract_wargus
 			elif [[ -a Install.mpq && -d Support ]]; then
 				echo "${PURPLE}Found Support folder & Install.mpq from Warcraft 2...${NC}"
 				extract_wargus
+			else 
+				echo "${PURPLE}Could not find Warcraft 2 game data...${NC}"
+				echo "${PURPLE}If you are using the latest GoG installer ensure both the .exe and .bin files are present and named correctly${NC}"
+				echo "${PURPLE}Quitting...${NC}"
+				exit 1
 			fi
 		else
 			echo "${PURPLE}Could not find War1gus app...${NC}"
