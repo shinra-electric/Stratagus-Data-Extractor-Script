@@ -111,14 +111,12 @@ verify_data() {
 				dependency_check timidity
 				extract_war1gus
 			fi
-		elif 
+		else
 			echo "${PURPLE}Could not find War1gus app...${NC}"
 			echo "${PURPLE}Please download it an place it in the same folder as this script and the game data${NC}"
 			exit 1
 		fi
-	fi
-	
-	if [[ $1 = wargus ]]; then
+	elif [[ $1 = wargus ]]; then
 		if [[ -a Wargus.app ]]; then
 			echo "${PURPLE}Found Wargus.app...${NC}"
 			xattr -cr Wargus.app
@@ -130,7 +128,7 @@ verify_data() {
 				echo "${PURPLE}Found Support folder & Install.mpq from Warcraft 2...${NC}"
 				extract_wargus
 			fi
-		elif 
+		else
 			echo "${PURPLE}Could not find War1gus app...${NC}"
 			echo "${PURPLE}Please download it an place it in the same folder as this script and the game data${NC}"
 			exit 1
