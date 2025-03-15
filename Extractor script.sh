@@ -113,7 +113,8 @@ verify_data() {
 			fi
 		else
 			echo "${PURPLE}Could not find War1gus app...${NC}"
-			echo "${PURPLE}Please download it an place it in the same folder as this script and the game data${NC}"
+			echo "${PURPLE}Please download it and place it in the same folder as this script and the game data${NC}"
+			echo "${PURPLE}Quitting...${NC}"
 			exit 1
 		fi
 	elif [[ $1 = wargus ]]; then
@@ -130,7 +131,8 @@ verify_data() {
 			fi
 		else
 			echo "${PURPLE}Could not find War1gus app...${NC}"
-			echo "${PURPLE}Please download it an place it in the same folder as this script and the game data${NC}"
+			echo "${PURPLE}Please download it and place it in the same folder as this script and the game data${NC}"
+			echo "${PURPLE}Quitting...${NC}"
 			exit 1
 		fi
 	fi
