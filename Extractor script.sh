@@ -40,14 +40,19 @@ introduction() {
 homebrew_check() {
 	echo "${PURPLE}Checking for Homebrew...${NC}"
 	if ! command -v brew &> /dev/null; then
-		echo -e "${PURPLE}Homebrew not found. Installing Homebrew...${NC}"
-		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 		if [[ "${ARCH}" == "arm64" ]]; then 
+  			echo "${PURPLE}Homebrew not found. Installing Homebrew for Apple Silicon...${NC}"
+			/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 			(echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> $HOME/.zprofile
 			eval "$(/opt/homebrew/bin/brew shellenv)"
-			else 
+		elif [[ "${ARCH}" == "x86_64" ]]; then 
+   			echo "${PURPLE}Homebrew not found. Installing Homebrew for Intel Macs...${NC}"
+			/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 			(echo; echo 'eval "$(/usr/local/bin/brew shellenv)"') >> $HOME/.zprofile
 			eval "$(/usr/local/bin/brew shellenv)"
+   		else 
+     			echo "${RED}Could not evaluate platform architecture${NC}"
+			exit 1
 		fi
 		
 		# Check for errors
